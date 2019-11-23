@@ -1,0 +1,38 @@
+#include <bits/stdc++.h> 
+#include <iostream>
+using namespace std;
+ 
+int main() {
+	string key;
+	cin>>key;
+	string ptext; 
+	cin>>ptext;
+	bool flag=false;
+	int diff =ptext.length()-key.length();
+	if(diff ==0){ flag=true;}
+	else {flag =false;}
+	
+	for(int i=0;i<diff; i++){
+		key=key+key[i];
+	}
+	
+	string vi="";
+	string vr="";
+	stringstream s2;
+	for(int i=0;i<ptext.length(); i++){
+		vi+=char(int(ptext[i]+key[i])%26+65);
+		
+	}
+	cout<<"Vigenere: "<<vi<<endl;
+	cout<<"Vernam: "; 
+	for(int i=0;i<ptext.length(); i++){
+		int val=int(ptext[i])^ int(key[i]);
+	    cout<< setfill('0') << setw(2) << hex <<uppercase<< val;
+	}
+	cout<<endl;
+	cout<<"One-Time Pad: ";
+	if(flag) cout<<"YES";
+	else cout<<"NO";
+	
+	return 0;
+}
