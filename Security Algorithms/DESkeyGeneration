@@ -1,0 +1,139 @@
+#include <iostream>
+#include <sstream>
+#include <bitset>
+#include <string>
+#include <bits/stdc++.h> 
+#include <cstdlib>
+using namespace std;
+void createMap(unordered_map<string, char>* um)
+{
+	(*um)["0000"] = '0';
+	(*um)["0001"] = '1';
+	(*um)["0010"] = '2';
+	(*um)["0011"] = '3';
+	(*um)["0100"] = '4';
+	(*um)["0101"] = '5';
+	(*um)["0110"] = '6';
+	(*um)["0111"] = '7';
+	(*um)["1000"] = '8';
+	(*um)["1001"] = '9';
+	(*um)["1010"] = 'A';
+	(*um)["1011"] = 'B';
+	(*um)["1100"] = 'C';
+	(*um)["1101"] = 'D';
+	(*um)["1110"] = 'E';
+	(*um)["1111"] = 'F';
+}
+ 
+string convertBinToHex(string bin)
+{
+	int l = bin.size();
+	int t = bin.find_first_of('.');
+ 
+	// length of string before '.' 
+	int len_left = t != -1 ? t : l;
+ 
+	// add min 0's in the beginning to make 
+	// left substring length divisible by 4  
+	for (int i = 1; i <= (4 - len_left % 4) % 4; i++)
+		bin = '0' + bin;
+ 
+	// if decimal point exists     
+	if (t != -1)
+	{
+		// length of string after '.' 
+		int len_right = l - len_left - 1;
+ 
+		// add min 0's in the end to make right 
+		// substring length divisible by 4  
+		for (int i = 1; i <= (4 - len_right % 4) % 4; i++)
+			bin = bin + '0';
+	}
+ 
+	// create map between binary and its 
+	// equivalent hex code 
+	unordered_map<string, char> bin_hex_map;
+	createMap(&bin_hex_map);
+ 
+	int i = 0;
+	string hex = "";
+ 
+	while (1)
+	{
+		// one by one extract from left, substring 
+		// of size 4 and add its hex code 
+		hex += bin_hex_map[bin.substr(i, 4)];
+		i += 4;
+		if (i == bin.size())
+			break;
+ 
+		// if '.' is encountered add it 
+		// to result 
+		if (bin.at(i) == '.')
+		{
+			hex += '.';
+			i++;
+		}
+	}
+ 
+	// required hexadecimal number 
+	return hex;
+}
+string rotl(string str, int n) {
+	string temp = str.substr(0, n);
+	string news = "";
+	for (int i = n; i < str.length(); i++) {
+		news += str[i];
+	}
+	news += temp;
+	return news;
+}
+int main() {
+	string key;
+	cin >> key;
+	int PC1[56] = { 57, 49, 41, 33, 25, 17, 9, 1, 58, 50, 42, 34, 26, 18, 10, 2, 59, 51, 43, 35, 27, 19, 11, 3, 60, 52, 44, 36, 63, 55, 47, 39, 31, 23, 15, 7, 62, 54, 46, 38, 30, 22, 14, 6, 61, 53, 45, 37, 29, 21, 13, 5, 28, 20, 12, 4 };
+	int PC2[48] = { 14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10, 23, 19, 12, 4, 26, 8, 16, 7, 27, 20, 13, 2, 41, 52, 31, 37, 47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32 };
+	int rot[16] = { 1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1 };
+	string binput = "";
+	for (int i = 0; i < key.length(); i++) {
+		stringstream ss;
+		ss << hex << key[i];
+		unsigned tt;
+		ss >> tt;
+		bitset<4> b(tt);
+		binput += b.to_string();
+	}
+ 
+	int arr[56];
+	string op = "";
+	for (int i = 0; i < 56; i++) {
+		arr[i] = binput[PC1[i] - 1];
+		char c = arr[i];
+		op += c;
+	}
+ 
+ 
+ 
+	string out[16] = { "" };
+	string pc2 = "";
+	
+	int arry[48] = { 0 };
+	string opt = "";
+	for (int i = 0; i < 16; i++) {
+		string left=op.substr(0,28);
+		string right=op.substr(28,28);
+		left=rotl(left, rot[i]);
+		right=rotl(right,rot[i]);
+		op=left;
+		op +=right;
+		for (int k = 0; k < 48; k++) {
+			arry[k] = op[PC2[k] - 1];
+			char f = arry[k];
+			opt += f;
+		}
+		string answer = convertBinToHex(opt);
+		cout << answer << endl;
+		opt = "";
+	}
+	return 0;
+}
