@@ -1,0 +1,24 @@
+//Xenya and ringroad
+#include <iostream>
+using namespace std;
+
+int main() {
+	long long n,m;
+	cin>>n>>m;
+	long long* arr=new long long [m];
+	for(int i=0; i<m;i++){
+		cin>>arr[i];
+	}
+	long long units=arr[0]-1;
+	for(int i=0; i<m-1;i++){
+		if(arr[i]<arr[i+1]){
+			units=units+(arr[i+1]-arr[i]);
+		}
+		else if(arr[i]>arr[i+1]){
+			units=units+((n-arr[i])+(arr[i+1]-1)+1);
+		}
+	}
+	
+	cout<<units;
+	return 0;
+}
