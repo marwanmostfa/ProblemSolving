@@ -1,0 +1,196 @@
+/*Reverse Polish notation is a mathematical notation in which every operator follows all of it's operands.
+
+Implement a Reverse Polish Notation calculator, with the following operations: +, -, *, /, x, y, z.
+
+x,y,z are special operators that work as follows:
+
+x: A binary operator equivalent to n1*n1 + n2 (e.g.: "5 2 x" = 27)
+y: A unary operator equivalent to 2*n + 1 (e.g.: "6 y" = 13)
+z: A ternary operator equivalent to n1 + 2*n2 + 3*n3 (e.g.: "1 2 3 z" = 14)
+All operations should be done on integers. You should use the symbols + - * / x y z for the operators.
+
+Note: You can assume that the final result and any intermediate result can fit in a signed 4-byte integer.
+
+Input
+A single line s containing numbers and operators separated by spaces. Numbers are in range [-100, 100]. If the string is not parse-able, or it leaves extra symbols, output NO.
+
+Output
+If the input is parse-able, print the result. Otherwise, print "NO".*/
+
+#include <iostream>
+#include<string>
+#include<stack>
+
+using namespace std;
+bool is_number(const std::string& s)
+{
+	std::string::const_iterator it = s.begin();
+	while (it != s.end() && std::isdigit(*it)) ++it;
+	return !s.empty() && it == s.end();
+}
+int main()
+{
+	string s;
+	getline(cin, s);
+	stack<int> stack;
+
+
+	string delimiter = " ";
+	size_t pos = 0;
+	string token;
+	bool p = false;
+if((s.length() == 1 ) && is_number(s)){
+	cout<<s;
+	return 0;
+}
+if(s.length()==2){
+	string t=s.substr(1,s.length());
+	if(s[0] =='-' && is_number(t) ){
+		cout<<s;
+		return 0;
+		
+	}
+}
+
+
+	while ((pos = s.find(delimiter)) != string::npos || s.length()==1 ) {
+	
+		if (s.length() == 1)
+		{
+			pos = 1;
+		}
+	
+		token = s.substr(0, pos);
+		
+		s.erase(0, pos + delimiter.length());
+		
+		if (is_number(token)||(token[0] =='-' && token.length() != 1 ))
+		{
+
+			signed int x = atoi(token.c_str());
+			stack.push(x);
+		}
+		else if (is_number(token)==false)
+		{
+
+
+			if (token[0] == '+')
+			{
+				if (stack.size() < 2) {
+					cout << "NO";
+					return 0;
+					break;
+				}
+				
+					int x = stack.top();
+					stack.pop();
+					int y = stack.top();
+					stack.pop();
+					stack.push(x + y);
+				
+			}
+			else if (token[0] == '-' && token.length() == 1)
+			{
+				if (stack.size() < 2) {
+					cout << "NO";
+					return 0;
+					break;
+				}
+				int x = stack.top();
+				stack.pop();
+				int y = stack.top();
+				stack.pop();
+				stack.push(y - x);
+			}
+			else if (token[0] == '*')
+			{
+				if (stack.size() < 2) {
+					cout << "NO";
+					return 0;
+					break;
+				}
+				int x = stack.top();
+				stack.pop();
+				int y = stack.top();
+				stack.pop();
+				stack.push(x * y);
+			}
+			else if (token[0] == '/')
+			{
+				if (stack.size() < 2) {
+					cout << "NO";
+					return 0;
+					break;
+				}
+				int x = stack.top();
+				stack.pop();
+				int y = stack.top();
+				stack.pop();
+				if (x == 0) {
+					cout << "NO";
+					return 0;
+				}
+				stack.push(y / x);
+			}
+			else if (token[0] == 'x')
+			{
+				if (stack.size() < 2) {
+					cout << "NO";
+					return 0;
+					break;
+				}
+				int x = stack.top();
+				stack.pop();
+				int y = stack.top();
+				stack.pop();
+				int z = y * y + x;
+				stack.push(z);
+			}
+			else if (token[0] == 'y')
+			{
+				if (stack.size() < 1) {
+					cout << "NO";
+					return 0;
+					break;
+				}
+				int x = stack.top();
+				stack.pop();
+				stack.push(2 * x +1);
+				
+			}
+			else if (token[0] == 'z')
+			{
+				if (stack.size() < 3) {
+					cout << "NO";
+					return 0;
+					break;
+				}
+				int x = stack.top();
+				stack.pop();
+				int y = stack.top();
+				stack.pop();
+				int w = stack.top();
+				stack.pop();
+				int r = w + 2 * y + 3 * x;
+				stack.push(r);
+				
+			}
+			p = true;
+		}
+
+		
+	}
+	
+	if (stack.size() == 1 && p)
+	{
+		
+		cout << stack.top();
+	}
+	else
+		cout << "NO";
+
+
+
+
+
+}
