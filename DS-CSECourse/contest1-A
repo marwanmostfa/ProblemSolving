@@ -1,0 +1,47 @@
+/*You are given an array of size N (N<100). You will need to check whether the array contains a repeated element or not.
+
+Input
+The first line contains an integer n (1≤n≤100) — the size of the array.
+
+The second line contains n integers a1,a2,…,an (-1000000≤ai≤1000000) — the elements of the array.
+
+Output
+If the array contains a repeated element, print "YES", otherwise print "NO".*/
+
+#include<iostream>
+#include<conio.h>
+using namespace std;
+
+
+int main()
+{
+	int n;
+	int *ptr;
+	cin >> n;
+	ptr = new int[n];
+for (int z=0; z<n;z++)
+{
+	cin >> ptr[z];
+}
+	int x = 0;
+        int j;
+	for (int i = 0; i < n; i++)
+
+	{
+		for ( j = i+1; j < n; j++)
+		{
+			if (ptr[i] == ptr[j]){ x++;}
+		}
+	}
+	if (x == 0) {
+		cout << "NO";
+	}
+	else {
+		cout << "YES";
+	}
+
+
+
+	delete[] ptr;
+	return 0;
+}
