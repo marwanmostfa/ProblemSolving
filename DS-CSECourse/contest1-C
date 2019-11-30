@@ -1,0 +1,57 @@
+/*Tourist likes competitive programming and he has his own Codeforces account. He participated in lots of Codeforces Rounds, solved so many problems and became "Legendary Grand Master" (the highest rank on Codeforces). One day, he logged in to check his account. Something wrong happened: his name was in black, like he never participated in any Codeforces Rounds and his rating was incorrect. He received an e-mail from Mike Mirzayanov (the founder of the website), "we are very sorry for this mistake, everything will be fixed in few minutes" Mike said. Tourist is relaxed now. He decided to have some fun until the bug is fixed, he also would like to help the founders of the website to fix all the bugs, so he will select a random user on Codeforces, open his contests page and start to sum the rating changes. Finally, he will make sure the sum is equal to the final rating of this user. Note: when someone creates a new Codeforces account, the initial rating is 1500.
+
+Input
+The input consists of several test cases. The first line of the input contains a single integer T, the number of the test cases. Each test case starts with a single line containing two space-separated integers N and R: N is the number of rating changes and R is the final rating of the user. (1 ≤ N ≤ 100, 0 ≤ R ≤ 4000). The next line contains N space-separated integers a0, a1, ..., an - 1 where  - 2000 ≤ ai ≤ 2000, 0 ≤ i < N (ai represents the change in rating in the ith contest where 0 ≤ i < N)
+
+Output
+For each test case, print a single line: "Correct" if the sum of rating changes (plus 1500) is equal to the final rating of the user and "Bug" otherwise.*/
+
+
+#include<iostream>
+using namespace std;
+ 
+ 
+int main()
+{
+	int T;
+	cin>>T;
+	int x[2];
+	int sum=1500;
+	int *ptr;
+	ptr=NULL;
+	int*ptr2;
+	ptr2=new int[T];
+	for(int i=0; i<T;i++)
+	{
+		for(int j=0; j<2;j++)
+		{
+			cin>>x[j];	
+		}
+		ptr=new int[x[0]];
+		for(int z=0; z<x[0];z++)
+		{
+			cin>>ptr[z];
+			sum=sum+ptr[z];	
+		}
+		if(sum==x[1])
+		{
+			ptr2[i]=1;
+		}
+else{
+ptr2[i]=0;
+}
+sum=1500;
+	}
+	for(int i=0; i<T;i++)
+	{
+		if(ptr2[i]==1){
+cout<<"Correct"<<endl;
+}
+else if(ptr2[i]==0){
+cout<<"Bug"<<endl;
+}
+	}
+delete [] ptr;
+delete [] ptr2;
+	return 0;
+}
