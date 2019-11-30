@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+
+void modBinarySearch(long long arr[], long long l, long long r, long long x) 
+{ 
+    if (r >= l) { 
+        long long mid = (l+r ) / 2; 
+  
+        if (arr[mid] == x){
+        	cout<<"YES";
+        } 
+        else if(arr[mid] != x && r==l){
+        	cout<<"NO";
+        }
+ 
+        if (arr[mid] > x){
+        	for(int i=l;i<mid;i++){
+        		cout<<arr[i]<<" ";
+        	}
+        	cout<<"\n";
+        	  return modBinarySearch(arr, l, mid - 1, x); 
+        } 
+          else if(arr[mid]<x){
+          	for(int i=mid+1;i<=r;i++){
+        		cout<<arr[i]<<" ";
+        	}
+        	cout<<"\n";
+        	 return modBinarySearch(arr, mid + 1, r, x); 
+          }
+    } 
+} 
+int main() {
+	long long x;
+	cin>>x;
+	long long n;
+	cin>>n;
+	long long *a=new long long [n];
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+	modBinarySearch(a,0,n-1,x);
+	return 0;
+}
