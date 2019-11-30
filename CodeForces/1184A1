@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+ 
+int main() {
+	long long r;
+	cin>>r;
+	// (r-1)/x-x-1 must be positive so that y to be a positive number
+	if(r%2==0 || r==1 || r==3) cout<<"NO";
+	else{
+		long long x,y;
+		long long up=(r-1);
+		//x less than root r
+		for(int i=1; i<100000 ; i++){
+			if((up/i-i-1)%2==0){
+				x=i;
+				y=(up/i-i-1)/2;
+				break;
+			}
+		}
+		cout<<x<<" "<<y;
+	}
+	return 0;
+}
