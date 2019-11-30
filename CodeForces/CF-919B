@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+int getSum(int n) 
+    {  
+    int sum = 0; 
+    while (n != 0) 
+    { 
+     sum = sum + n % 10; 
+     n = n/10; 
+    }  
+ return sum; 
+ } 
+int main() {
+	int k;
+	cin>>k;
+	int counter=0;
+	for(int i=19; i<20000000;i++){
+		int s=getSum(i);
+		if(s==10){
+			counter++;
+		}
+		if(counter==k){
+			cout<<i;
+			break;
+		}
+	}
+	return 0;
+}
