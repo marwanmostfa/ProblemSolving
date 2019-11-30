@@ -1,0 +1,78 @@
+/*A group of junior programmers are attending an advanced programming camp, where they learn very difficult algorithms and programming techniques! Near the center in which the camp is held, is a professional bakery which makes tasty pastries and pizza. It is called 'Bonabity'... or 'Ponapety'... or 'Ponabity'... Actually no one knows how to spell this name in English, even the bakery owner doesn't, and the legends say that Arabs always confuse between 'b' and 'p', and also between 'i' and 'e', so 'b' for them is just the same as 'p', and 'i' for them is just the same as 'e', they also don't care about letters' cases (uppercase and lowercase for a certain letter are similar). For example, the words 'Ponabity' and 'bonabety' are considered the same. You are given two words including only upper case and lower case English letters, and you have to determine whether the two words are similar in Arabic.
+
+Input
+The input consists of several test cases. The first line of the input contains a single integer T, the number of the test cases. Each of the following T lines represents a test case and contains two space-separated strings (each one consists of only upper case and lower case English letters and its length will not exceed 100 characters).
+
+Output
+For each test case print a single line: 'Yes' if the words are similar in Arabic and 'No' otherwise.*/
+
+#include<iostream>
+#include<string.h>
+#include<stdio.h>
+#include <cctype>
+using namespace std;
+ 
+ 
+int main()
+{
+	int T;
+	cin>>T;
+	string x[2];
+	string *ptr;
+	ptr=new string[T];
+	 unsigned int sum=1;
+    int result=0;
+	for(int i=0; i<T;i++)
+	{
+		for(int j=0; j<2;j++)
+		{
+			cin>>x[j];	
+		}
+		
+		string str1=x[0];
+		string str2=x[1];
+		if(str1.length() == str2.length())
+		{
+		    for (int z=0; z<=str1.length(); z++){
+		      
+		        if( (str1[z]=='b' || str1[z]=='p' || str1[z]=='B' || str1[z]=='P') && (str2[z]=='b' || str2[z]=='p'|| str2[z]=='B' || str2[z]=='P' ))
+		        {
+		             str1[z]= tolower(str1[z]);
+		        str2[z]=tolower(str2[z]);
+		        str1[z]='b';
+		        str2[z]='b';
+		            }
+		        else if( (str1[z]=='i' || str1[z]=='e' || str1[z]=='I' || str1[z]=='E' ) && ( str2[z]=='i' || str2[z]=='e' || str2[z]=='I' || str2[z]=='E'))
+		        {
+		             str1[z]= tolower(str1[z]);
+		        str2[z]=tolower(str2[z]);
+		        str1[z]='i';
+		        str2[z]='i';
+		            }
+		       
+		        else{
+		             str1[z]= tolower(str1[z]);
+		        str2[z]=tolower(str2[z]);
+		            }
+		    }
+		}
+		
+		else{
+		    sum=0;
+		}
+		
+		if(str1 == str2){
+		    ptr[i]="Yes";
+		}
+		else {
+		    ptr[i]="No";
+		}
+		
+	}
+		for(int i=0; i<T;i++)
+{
+    cout<<ptr[i]<<endl;
+}
+delete[]ptr;
+	return 0;
+}
