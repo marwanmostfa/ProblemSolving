@@ -1,0 +1,132 @@
+/*As a malicious hacker you are trying to steal your mother's password, and therefore you have installed a keylogger on her PC (or Mac, so you like). You have a log from your mother typing the password, but unfortunately the password is not directly visible because she used the left and right arrows to change the position of the cursor, and the backspace to delete some characters. Write a program that can decode the password from the given keylog.
+
+Input
+• One line with a string L, satisfying 1 ≤ Length(L) ≤ 1, 000, 000, consisting of:
+
+'-' representing backspace: the character directly before the cursor position is deleted, if there is any.
+'<' (and '>') representing the left (right) arrow: the cursor is moved 1 character to the left (right), if possible.
+alphanumeric characters, which are part of the password, unless deleted later. We assume 'insert mode': if the cursor is not at the end of the line, and you type an alphanumeric character, then all characters after the cursor move one position to the right. Every decoded password will be of length > 0.
+Output
+For every test case in the input, the output should contain a single string, on a single line: the decoded password.*/
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <stack>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+stack <char> st;
+stack <char> q;
+
+void print(void)
+{
+	char k;
+	if (st.empty())
+		return;
+	else
+	{
+		k = st.top();
+		st.pop();
+		print();
+		cout << k;
+	}
+
+}
+int main()
+{
+	int x = 0;
+	int kons = 0;
+	int cont = 0;
+	int counter = 0;
+	int counter1 = 0;
+	string input, output;
+	int flag = 0;
+	getline(cin, input);
+	for (int i = 0; i < input.size(); i++)
+	{
+		if (input[i] == '<')
+		{
+			counter++;
+			if (flag == 0)
+			{
+				continue;
+			}
+			else
+			{
+				if (counter <= kons)
+				{
+					char temp1 = st.top();
+					st.pop();
+					q.push(temp1);
+					cont++;
+					flag--;
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		else if (input[i] == '>')
+		{
+			counter1++;
+			if (x == 0)
+			{
+				counter1--;
+				continue;
+			}
+			else
+			{
+				if (counter1 <= cont)
+				{
+					char temp2 = q.top();
+					q.pop();
+					st.push(temp2);
+					flag++;
+					counter--;
+				}
+				else
+				{
+					counter1--;
+					continue;
+				}
+			}
+
+		}
+		else if (input[i] == '-')
+		{
+			if (st.size() == 0)
+				continue;
+			else
+			{
+				st.pop();
+				flag--;
+				kons = flag;
+				counter--;
+			}
+		}
+		else
+		{
+			flag++;
+			st.push(input[i]);
+			counter = 0;
+			kons = flag;
+			x = 1;
+		}
+	}
+	if (q.size() > 0)
+	{
+		int fixed_size = q.size();
+		for (int k = 0; k < fixed_size; k++)
+		{
+			char temp = q.top();
+			q.pop();
+			st.push(temp);
+		}
+	}
+	print();
+	return 0;
+}
