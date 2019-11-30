@@ -1,0 +1,32 @@
+/*Amr and Khaled were just introduced to graph theory.
+
+They decided to play a game together related to graphs. They will pick a random area from google maps. Then, each one has to decide whether they need to represent the roads using directed edges or undirected ones.
+
+Can you help them do the decision?
+
+Input
+The first line will contain two integers n, m (2<=n<=100 , 0<=m<= n *(n-1)) where n represents the number of nodes in the graph and m represents the number of edges.
+
+The following m lines will contain two integers a, b (0<=a, b < n , a!=b).
+
+Each of these lines indicate that there is a one-way road from node a to node b.
+
+Note: The graph won't have neither multiple edges https://en.wikipedia.org/wiki/Multiple_edges nor self loops https://en.wikipedia.org/wiki/Loop_(graph_theory).
+
+Output
+Print "DIR" if the graph can only be represented using a directed graph.
+
+Otherwise, print "BOTH".
+
+Note: Don't print the double quotes ""! */
+
+#include <iostream>
+using namespace std;
+ 
+int main() {
+	int n,m;
+	cin>>n>>m;
+	if((m%2)==0) cout<<"BOTH";
+	else cout<<"DIR";
+	return 0;
+}
