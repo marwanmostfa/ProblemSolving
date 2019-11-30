@@ -1,0 +1,44 @@
+/* Mark and Matrin liked the idea of Binary Search Trees.
+
+Instead of storing a set of key, value pairs in a contiguous data-structure such as an array, a special binary tree is used to store the values so that the cost of searching for a certain key is optimized.
+
+They encountered a set of n numbers so they decided to build a BST using these values. Then, they had a better idea. They decided to determine whether the tree is balanced or not.
+
+Note: "A binary tree is balanced if both sub-trees are balanced and the height of the two sub-trees differ by at most one."
+
+Input
+A single integer n (1<=n<=1000) representing the number of values in the BST.
+
+The second line contains n unique values all in range [1, n]. These values indicate the order of insertions to the BST. (The first value is inserted into the BST followed by the second value and so on).
+
+Output
+A single string "YES" if the tree is balanced or "NO" if the tree isn't balanced.*/
+
+#include <iostream>
+#include<stack>
+#include <cstdlib>
+using namespace std;
+
+int main() {
+	int n;
+	cin>>n;
+	int *arr=new int[n];
+	
+	stack<int>left;
+	stack<int>right;
+		for(int i=0;i<n;i++){
+			cin>>arr[i];
+		}
+		int root=arr[0];
+		//cout<<root<<endl;
+	for(int i=1;i<n;i++){
+		
+		if(arr[i]>root) right.push(arr[i]);
+		else left.push(arr[i]);
+	}
+	//cout<<left.size()<<endl<<right.size()<<endl;
+	int r=left.size()-right.size();
+	if(abs(r) <=1) cout<<"YES";
+	else cout<<"NO";
+	return 0;
+}
