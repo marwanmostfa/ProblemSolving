@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+ 
+int main() {
+	long long n;
+	cin>>n;
+	long long counterp=0;
+	long long countern=0;
+	long long zeros=0;
+	long long nones=0;
+	long long ones=0;
+	long long *arr=new long long[n];
+	for(int i=0; i<n ;i++){
+		cin>>arr[i];
+		if(arr[i]<0 ) {
+			countern=countern-1-arr[i];
+			nones++;
+		}
+		else if(arr[i]>0){
+			counterp=counterp+arr[i]-1;
+			ones++;
+		}
+		else if(arr[i]==0){
+			zeros++;
+		}
+	}
+ 
+	if(zeros>0){
+		cout<<counterp+countern+zeros;
+	}
+	else if(zeros==0){
+		if((nones)%2==0 ){
+			cout<<counterp+countern;
+		}
+		else{
+				cout<<counterp+countern+2;
+		}
+	}
+	
+	return 0;
+}
