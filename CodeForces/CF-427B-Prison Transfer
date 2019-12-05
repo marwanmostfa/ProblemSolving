@@ -1,0 +1,38 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+	long long n,t,c;
+	cin>>n>>t>>c;
+	long long* arr=new long long[n];
+	long long len=0;
+	long long ways=0;
+	bool cont=false;
+	cin>>arr[0];
+	if(arr[0] <=t){cont=true; len++;}
+	for(int i=1; i<n;i++){ 
+		cin>>arr[i];
+		if(arr[i] <=t && cont){
+			len++;
+		}
+		else if(arr[i] <=t && !cont){
+			len++;
+			cont=true;
+		}
+		else{
+			if(len>=c){
+			if(len !=c) ways=ways+(len-c)+1;
+			else ways=ways+1;
+			}
+			len=0;
+			cont=false;
+		}
+	}
+	if(len !=0 && len>=c) {
+		if(len !=c) ways=ways+(len-c)+1;
+		else ways=ways+1;
+	}
+	cout<<ways;
+	
+	return 0;
+}427B
